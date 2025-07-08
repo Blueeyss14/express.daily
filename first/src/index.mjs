@@ -11,25 +11,35 @@ app.get("/", (request, response) => {
 app.use(express.json());
 
 const users = [
-    { id: 1, username: "orang" },
-    { id: 2, username: "orang" },
-    { id: 3, username: "orang" },
-    { id: 4, username: "orang" },
+    { id: 0, username: "orang", test: "yahah"},
+    { id: 1, username: "orang", test: "yahah"},
+    { id: 2, username: "orang", test: "yahah"},
+    { id: 3, username: "orang", test: "yahah"},
 ];
 
-app.get("/api/users/", (request, response,) => {
+app.get("/api/users/", (request, response) => {
+    response.setHeader('Content-Type', 'application/json');
     response.send(users);
-})
+});
 
 app.post("/api/users", (req, res) => {
-    const { username } = req.body;
+    const requiredFields = ['username', 'test'];
+    const emptyField = requiredFields.some(field => !req.body[field]);
+
+    if (emptyField) {
+        return res.status(400).json({ error: "cannot be empty" });
+    }
+
+    const { username, test } = req.body;
     const newUser = {
-        id: users.length + 1,
-        username: username
+        id: users.length,
+        username: username,
+        test: test
     };
     users.push(newUser);
-    res.status(201).send(newUser);
+    res.status(201).json(newUser);
 });
+
 
 app.listen(PORT, () => {
     console.log(`Running on Port ${PORT}`);
