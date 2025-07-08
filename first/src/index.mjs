@@ -8,6 +8,8 @@ app.get("/", (request, response) => {
     response.status(201).send({msg: 'hello'});
 });
 
+app.use(express.json());
+
 const users = [
     { id: 1, username: "orang" },
     { id: 2, username: "orang" },
@@ -18,6 +20,16 @@ const users = [
 app.get("/api/users/", (request, response,) => {
     response.send(users);
 })
+
+app.post("/api/users", (req, res) => {
+    const { username } = req.body;
+    const newUser = {
+        id: users.length + 1,
+        username: username
+    };
+    users.push(newUser);
+    res.status(201).send(newUser);
+});
 
 app.listen(PORT, () => {
     console.log(`Running on Port ${PORT}`);
