@@ -1,9 +1,9 @@
-let users = [
-    { id: 1, name: 'Alice' },
-    { id: 2, name: 'Bosb' }
-  ];
+let users = [];
   
   function getAll() {
+    if (users.length === 0) {
+      return {msg: "Data has not been created yet"};
+    }
     return users;
   }
   
