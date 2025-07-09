@@ -1,4 +1,6 @@
-let users = [];
+let users = [
+  {id: 1,name : "dell",}
+];
   
   function getAll() {
     if (users.length === 0) {
