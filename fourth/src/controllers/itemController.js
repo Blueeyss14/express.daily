@@ -24,10 +24,10 @@ exports.getItemById = (req, res) => {
 exports.createItem = (req, res) => {
     const item = items.createItem(req.body);
     if (!item) return res.status(400).send({err: "Failed to create item"});
-   res.status(201).send(JSON.stringify({
-    msg: "gg slurd",
-    data: item
-}, null, 2));
+   res.status(201).json({
+    msg: "yo gg",
+    data: item,
+   });
 
 }
 
